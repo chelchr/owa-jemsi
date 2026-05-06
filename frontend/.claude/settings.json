@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk ls *)",
+      "Bash(rtk tsc *)",
+      "Bash(rtk npm *)",
+      "Bash(rtk read *)",
+      "Bash(rtk curl *)",
+      "Bash(rtk grep *)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  }
+}
