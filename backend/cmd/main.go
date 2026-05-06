@@ -24,8 +24,17 @@ func main() {
 		log.Fatal("Failed to migrate database:", err)
 	}
 
+	// Init AI client (connects to Python AI service)
+	aiClient := service.NewAIClient()
+	if err := aiClient.HealthCheck(); err != nil {
+		log.Printf("⚠️  AI service not available: %v", err)
+		log.Println("   Reports will use user-provided species (fallback mode)")
+	} else {
+		log.Println("✅ AI service connected at", aiClient.BaseURL)
+	}
+
 	reportRepo := &repository.ReportRepository{DB: db}
-	reportService := &service.ReportService{Repo: reportRepo}
+	reportService := &service.ReportService{Repo: reportRepo, AIClient: aiClient}
 	reportHandler := &handler.ReportHandler{Service: reportService}
 
 	r := gin.Default()

@@ -1,39 +1,53 @@
 package service
 
 import (
+	"fmt"
+	"io"
+	"log"
+	"mime/multipart"
+	"path/filepath"
+
 	"github.com/ImYiz/wildlife-backend/internal/model"
 	"github.com/ImYiz/wildlife-backend/internal/repository"
 )
 
 type ReportService struct {
-	Repo *repository.ReportRepository
+	Repo     *repository.ReportRepository
+	AIClient *AIClient
 }
 
-func NewReportService(repo *repository.ReportRepository) *ReportService {
-	return &ReportService{Repo: repo}
+func NewReportService(repo *repository.ReportRepository, aiClient *AIClient) *ReportService {
+	return &ReportService{Repo: repo, AIClient: aiClient}
 }
 
-// CREATE REPORT
-func (s *ReportService) Create(report model.Report) (model.Report, error) {
+// CREATE REPORT — dengan prediksi AI
+func (s *ReportService) Create(report model.Report, photoFile multipart.File, photoHeader *multipart.FileHeader) (model.Report, error) {
 
-	// SIMULASI AI (NANTI NABIL GANTI PAKE API NYA)
-	aiSpecies := "bekantan"
-	aiConfidence := 0.7
-
-	threshold := 0.8
-
-	finalSpecies := report.Species
-	source := "user"
-
-	if aiConfidence >= threshold {
-		finalSpecies = aiSpecies
-		source = "ai"
+	// Baca file bytes untuk dikirim ke AI service
+	imageData, err := io.ReadAll(photoFile)
+	if err != nil {
+		return report, fmt.Errorf("failed to read photo file: %w", err)
 	}
 
-	// SET FINAL DATA
-	report.Species = finalSpecies
-	report.AIConfidence = aiConfidence
-	report.PredictionSource = source
+	filename := filepath.Base(photoHeader.Filename)
+
+	// Panggil AI service untuk prediksi
+	prediction, err := s.AIClient.Predict(imageData, filename)
+	if err != nil {
+		// Jika AI service gagal, log error tapi tetap simpan report
+		// Gunakan data dari user (fallback)
+		log.Printf("⚠️  AI prediction failed: %v — using user input", err)
+		report.PredictionSource = "user"
+	} else {
+		// Gunakan hasil AI
+		report.Species = prediction.Species
+		report.AIConfidence = prediction.Confidence
+		report.RiskLevel = prediction.RiskLevel
+		report.PredictionSource = "ai"
+
+		log.Printf("✅ AI prediction: %s (%.1f%%) — risk: %s",
+			prediction.SpeciesLabel, prediction.Confidence*100, prediction.RiskLevel)
+	}
 
 	return s.Repo.Create(report)
 }

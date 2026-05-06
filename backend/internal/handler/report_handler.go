@@ -22,18 +22,26 @@ func NewReportHandler(service *service.ReportService) *ReportHandler {
 // CREATE REPORT
 func (h *ReportHandler) CreateReport(c *gin.Context) {
 	// ambil file
-	file, err := c.FormFile("photo")
+	fileHeader, err := c.FormFile("photo")
 	if err != nil {
 		c.JSON(400, gin.H{"error": "photo is required"})
 		return
 	}
 
-	// simpan file
-	path, err := utils.SaveFile(c, file)
+	// simpan file ke disk
+	path, err := utils.SaveFile(c, fileHeader)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+
+	// Buka file untuk dikirim ke AI service
+	file, err := fileHeader.Open()
+	if err != nil {
+		c.JSON(500, gin.H{"error": "failed to open uploaded file"})
+		return
+	}
+	defer file.Close()
 
 	// ambil field lain
 	latitude := c.PostForm("latitude")
@@ -54,7 +62,8 @@ func (h *ReportHandler) CreateReport(c *gin.Context) {
 	fmt.Sscan(latitude, &report.Latitude)
 	fmt.Sscan(longitude, &report.Longitude)
 
-	result, err := h.Service.Create(report)
+	// Panggil service dengan file untuk AI prediction
+	result, err := h.Service.Create(report, file, fileHeader)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
