@@ -1,0 +1,45 @@
+package main
+
+import (
+	"log"
+
+	"github.com/ImYiz/wildlife-backend/internal/config"
+	"github.com/ImYiz/wildlife-backend/internal/handler"
+	"github.com/ImYiz/wildlife-backend/internal/model"
+	"github.com/ImYiz/wildlife-backend/internal/repository"
+	"github.com/ImYiz/wildlife-backend/internal/service"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+)
+
+func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found (skip)")
+	}
+
+	db := config.ConnectDB()
+
+	if err := db.AutoMigrate(&model.Report{}); err != nil {
+		log.Fatal("Failed to migrate database:", err)
+	}
+
+	reportRepo := &repository.ReportRepository{DB: db}
+	reportService := &service.ReportService{Repo: reportRepo}
+	reportHandler := &handler.ReportHandler{Service: reportService}
+
+	r := gin.Default()
+
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "pong"})
+	})
+
+	r.POST("/reports", reportHandler.CreateReport)
+	r.GET("/reports", reportHandler.GetReports)
+	r.GET("/stats", reportHandler.GetStats)
+
+	log.Println("Server running on http://localhost:8080")
+	if err := r.Run(":8080"); err != nil {
+		log.Fatal("Failed to start server:", err)
+	}
+}
