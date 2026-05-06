@@ -1,0 +1,85 @@
+{
+  "train": {
+    "orangutan": 240,
+    "bekantan": 240,
+    "beruang_madu": 240,
+    "owa": 240,
+    "rangkong": 240,
+    "gajah": 240,
+    "badak": 240,
+    "penyu": 240,
+    "macan_dahan": 240
+  },
+  "val": {
+    "orangutan": 30,
+    "bekantan": 30,
+    "beruang_madu": 30,
+    "owa": 30,
+    "rangkong": 30,
+    "gajah": 30,
+    "badak": 30,
+    "penyu": 30,
+    "macan_dahan": 30
+  },
+  "test": {
+    "orangutan": 30,
+    "bekantan": 30,
+    "beruang_madu": 30,
+    "owa": 30,
+    "rangkong": 30,
+    "gajah": 30,
+    "badak": 30,
+    "penyu": 30,
+    "macan_dahan": 30
+  },
+  "species_info": {
+    "orangutan": {
+      "label": "Orangutan Kalimantan",
+      "taxon_id": 43582,
+      "source": "iNaturalist API (CC-licensed, research grade)"
+    },
+    "bekantan": {
+      "label": "Bekantan",
+      "taxon_id": 43538,
+      "source": "iNaturalist API (CC-licensed, research grade)"
+    },
+    "beruang_madu": {
+      "label": "Beruang Madu",
+      "taxon_id": 41655,
+      "source": "iNaturalist API (CC-licensed, research grade)"
+    },
+    "owa": {
+      "label": "Owa Kalimantan",
+      "taxon_id": 43585,
+      "source": "iNaturalist API (CC-licensed, research grade)",
+      "note": "Family-level: Hylobatidae. Didominasi Hylobates muelleri (Owa Kalimantan)"
+    },
+    "rangkong": {
+      "label": "Rangkong",
+      "taxon_id": 5438,
+      "source": "iNaturalist API (CC-licensed, research grade)"
+    },
+    "gajah": {
+      "label": "Gajah Kalimantan",
+      "taxon_id": 43697,
+      "source": "iNaturalist API (CC-licensed, research grade)"
+    },
+    "badak": {
+      "label": "Badak",
+      "taxon_id": 43341,
+      "source": "iNaturalist API (CC-licensed, research grade)",
+      "note": "Family-level: Rhinocerotidae. Didominasi Dicerorhinus sumatrensis"
+    },
+    "penyu": {
+      "label": "Penyu",
+      "taxon_id": 39659,
+      "source": "iNaturalist API (CC-licensed, research grade)"
+    },
+    "macan_dahan": {
+      "label": "Macan Dahan",
+      "taxon_id": 74753,
+      "source": "iNaturalist API (CC-licensed, research grade)",
+      "note": "108 foto asli Neofelis diardi + 192 foto augmentasi (2.8x multiplier)"
+    }
+  }
+}
