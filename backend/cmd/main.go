@@ -9,6 +9,7 @@ import (
 	"github.com/ImYiz/wildlife-backend/internal/repository"
 	"github.com/ImYiz/wildlife-backend/internal/service"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -38,6 +39,7 @@ func main() {
 	reportHandler := &handler.ReportHandler{Service: reportService}
 
 	r := gin.Default()
+	r.Use(cors.Default())
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "pong"})
