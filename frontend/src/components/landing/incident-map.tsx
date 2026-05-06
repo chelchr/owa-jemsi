@@ -1,19 +1,42 @@
-import { AlertTriangle, MapPin } from "lucide-react";
-import Image from "next/image";
-const LEGEND = [
-  { label: "Beruang", color: "bg-yellow-400" },
-  { label: "Enggang", color: "bg-green-500" },
-  { label: "Orangutan", color: "bg-orange-brand" },
-  { label: "Lainnya", color: "bg-amber-700" },
-];
+"use client";
 
-const STATS = [
-  { label: "BERUANG", value: "20", color: "bg-danger-500" },
-  { label: "ENGGANG", value: "47", color: "bg-orange-brand" },
-  { label: "ORANGUTAN", value: "35", color: "bg-amber-500" },
-];
+import { AlertTriangle } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import { Report, Stats, getReports, getStats } from "@/lib/api";
+
+const MapClient = dynamic(() => import("./map-client"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[400px] rounded-2xl bg-leaf-100/50 animate-pulse border border-leaf-100 flex items-center justify-center">
+      <p className="text-sm text-forest-700/50 font-bold">Memuat peta...</p>
+    </div>
+  ),
+});
 
 export function IncidentMap() {
+  const [reports, setReports] = useState<Report[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
+
+  useEffect(() => {
+    getReports().then(setReports).catch(console.error);
+    getStats().then(setStats).catch(console.error);
+  }, []);
+
+  const total = stats?.total ?? 109; // fallback if error
+
+  // Calculate species specific from reports manually or just show total for now
+  // For simplicity, let's derive it from reports array if we have it
+  const beruangCount = reports.filter((r) => r.species.toLowerCase().includes("beruang")).length;
+  const enggangCount = reports.filter((r) => r.species.toLowerCase().includes("enggang")).length;
+  const orangutanCount = reports.filter((r) => r.species.toLowerCase().includes("orangutan")).length;
+
+  const STATS_CARDS = [
+    { label: "BERUANG", value: beruangCount || 20, color: "bg-danger-500" },
+    { label: "ENGGANG", value: enggangCount || 47, color: "bg-orange-brand" },
+    { label: "ORANGUTAN", value: orangutanCount || 35, color: "bg-amber-500" },
+  ];
+
   return (
     <section id="peta" className="bg-leaf-50 px-5 py-12">
       <div className="mx-auto max-w-md">
@@ -24,21 +47,21 @@ export function IncidentMap() {
         </h2>
         <p className="mt-3 text-sm text-forest-800/80 leading-relaxed">
           Memvisualisasikan{" "}
-          <span className="font-bold text-forest-900">109 insiden</span>{" "}
-          perjumpaan satwa dan jalur jelajah endemik selama satu dekade
-          terakhir. Pahami ruang gerak mereka untuk harmoni pembangunan yang
-          lebih baik.
+          <span className="font-bold text-forest-900">{total} insiden</span>{" "}
+          perjumpaan satwa dan jalur jelajah endemik. Pahami ruang gerak mereka
+          untuk harmoni pembangunan yang lebih baik.
         </p>
 
-        <Image src="/Frame 5.svg" alt="Peta Interaksi Satwa IKN" width={800} height={400} className="rounded-2xl border border-leaf-100" />
+        <div className="mt-6">
+          <MapClient reports={reports} />
+        </div>
 
-
-        <div className="mt-4 rounded-2xl bg-forest-700 text-white p-4">
+        <div className="mt-4 rounded-2xl bg-forest-700 text-white p-4 shadow-sm">
           <p className="text-[11px] tracking-wider opacity-80">TOTAL INSIDEN</p>
           <p className="mt-1 text-3xl font-extrabold">
-            109{" "}
+            {total}{" "}
             <span className="text-xs font-medium opacity-80">
-              selama satu dekade terakhir
+              laporan tercatat
               <br />
               untuk semua spesies
             </span>
@@ -46,10 +69,10 @@ export function IncidentMap() {
         </div>
 
         <div className="mt-3 grid grid-cols-3 gap-2">
-          {STATS.map((s) => (
+          {STATS_CARDS.map((s) => (
             <div
               key={s.label}
-              className={`rounded-xl ${s.color} text-white p-3`}
+              className={`rounded-xl ${s.color} text-white p-3 shadow-sm`}
             >
               <p className="text-[10px] tracking-wider font-semibold">
                 {s.label}

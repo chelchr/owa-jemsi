@@ -7,6 +7,7 @@ import { ReportModal } from "@/components/landing/report-form";
 import { SafetyGuide } from "@/components/landing/safety-guide";
 import { Species } from "@/components/landing/species";
 import { Trends } from "@/components/landing/trends";
+import { ToastContainer } from "@/components/ui/toast";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <Footer />
       </main>
       <ReportModal />
+      <ToastContainer />
     </ReportProvider>
   );
 }

@@ -1,9 +1,7 @@
-const SUMMARY = [
-  { label: "TOTAL INSIDEN", value: "109", sub: "2020 – 2025" },
-  { label: "INSIDEN 2025", value: "14", sub: "-18% vs 2024" },
-  { label: "WILAYAH", value: "3", sub: "Sepaku · Penajam · Samboja" },
-  { label: "SPESIES PANTAUAN", value: "3", sub: "Orangutan · Enggang · Beruang Madu" },
-];
+"use client";
+
+import { useEffect, useState } from "react";
+import { Stats, getStats } from "@/lib/api";
 
 const YEARLY = [
   { y: "2020", v: 12 },
@@ -14,21 +12,24 @@ const YEARLY = [
   { y: "2025", v: 14 },
 ];
 
-const REGIONS = [
-  { name: "Sepaku", o: 14, e: 18, b: 8 },
-  { name: "Penajam", o: 12, e: 16, b: 7 },
-  { name: "Samboja", o: 9, e: 13, b: 5 },
-];
-
 export function Trends() {
-  const max = Math.max(...YEARLY.map((d) => d.v));
-  const points = YEARLY.map((d, i) => {
-    const x = (i / (YEARLY.length - 1)) * 100;
-    const y = 100 - (d.v / max) * 80 - 10;
-    return `${x},${y}`;
-  }).join(" ");
+  const [stats, setStats] = useState<Stats | null>(null);
 
-  const maxRegion = Math.max(...REGIONS.map((r) => r.o + r.e + r.b));
+  useEffect(() => {
+    getStats().then(setStats).catch(console.error);
+  }, []);
+
+  const total = stats?.total ?? 109; // fallback if error
+  const tinggi = stats?.tinggi ?? 0;
+  const sedang = stats?.sedang ?? 0;
+  const rendah = stats?.rendah ?? 0;
+
+  const SUMMARY = [
+    { label: "TOTAL INSIDEN", value: total.toString(), sub: "Seluruh data" },
+    { label: "RESIKO TINGGI", value: tinggi.toString(), sub: "Butuh penanganan" },
+    { label: "RESIKO SEDANG", value: sedang.toString(), sub: "Pantauan aktif" },
+    { label: "RESIKO RENDAH", value: rendah.toString(), sub: "Aman terkendali" },
+  ];
 
   return (
     <section id="statistik" className="bg-leaf-50 px-5 py-12">
