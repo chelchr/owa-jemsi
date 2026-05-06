@@ -26,8 +26,16 @@ class Config:
     NUM_WORKERS = 0  # Windows-safe; naikkan ke 4 di Linux/Colab
 
     CLASSES = [
-        "orangutan", "bekantan", "beruang_madu", "owa",
-        "rangkong", "gajah", "badak", "penyu", "macan_dahan",
+        # Urutan WAJIB alfabetis — sama persis dengan cara ImageFolder load folder
+        "badak",        # 0
+        "bekantan",     # 1
+        "beruang_madu", # 2
+        "gajah",        # 3
+        "macan_dahan",  # 4
+        "orangutan",    # 5
+        "owa",          # 6
+        "penyu",        # 7
+        "rangkong",     # 8
     ]
 
     LABEL_MAP = {

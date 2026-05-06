@@ -189,7 +189,7 @@ def build_interface():
         <div style="text-align: center; padding: 20px 0 10px 0;">
             <h1 class="main-title">🦧 IKN Wildlife Classifier</h1>
             <p class="subtitle">
-                🌿 <em>Rimba di Tengah Beton</em> — Tema 6 DSAI Assignment
+                🌿 <em>Owa Jemsi</em>
                 <br>
                 Identifikasi 9 spesies satwa liar Ibu Kota Nusantara
             </p>
