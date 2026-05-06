@@ -1,0 +1,18 @@
+IKN Wildlife Classifier — Classification Report
+=================================================================
+
+                      precision    recall  f1-score   support
+
+Orangutan Kalimantan     1.0000    1.0000    1.0000        30
+            Bekantan     1.0000    0.9333    0.9655        30
+        Beruang Madu     0.9375    1.0000    0.9677        30
+      Owa Kalimantan     1.0000    0.9667    0.9831        30
+            Rangkong     1.0000    0.9667    0.9831        30
+    Gajah Kalimantan     0.9630    0.8667    0.9123        30
+               Badak     0.8788    0.9667    0.9206        30
+               Penyu     1.0000    1.0000    1.0000        30
+         Macan Dahan     0.9062    0.9667    0.9355        30
+
+            accuracy                         0.9630       270
+           macro avg     0.9651    0.9630    0.9631       270
+        weighted avg     0.9651    0.9630    0.9631       270
