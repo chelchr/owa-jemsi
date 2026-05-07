@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Sparkles, Users } from "lucide-react";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SPECIES = [
   {
@@ -94,65 +95,75 @@ export function Species() {
           <div className="absolute bottom-24 right-0 h-40 w-56 rounded-tl-[7rem] bg-white/12" />
           <div className="absolute left-10 top-24 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
 
-          {species.stars.map((starClass, index) => (
-            <SpeciesStar key={`${species.name}-${index}`} className={starClass} />
-          ))}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              {species.stars.map((starClass, index) => (
+                <SpeciesStar key={`${species.name}-${index}`} className={starClass} />
+              ))}
 
-          <div className="relative z-10 pr-36 text-forest-800 sm:pr-40">
-            <span className="inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold shadow-sm">
-              {species.badge}
-            </span>
+              <div className="relative z-10 pr-36 text-forest-800 sm:pr-40">
+                <span className="inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold shadow-sm">
+                  {species.badge}
+                </span>
 
-            <h3 className="mt-4 text-[2.1rem] font-extrabold leading-[0.98] sm:text-[2.35rem]">
-              {species.name}
-            </h3>
-            <p className="mt-3 text-lg italic text-forest-800/80">
-              {species.latin}
-            </p>
-
-            <div className="mt-7 space-y-5">
-              <div>
-                <p className="flex items-center gap-2 text-[0.95rem] font-semibold uppercase tracking-wide text-forest-800/85">
-                  <Users className="h-5 w-5" />
-                  Populasi di IKN
+                <h3 className="mt-4 text-[2.1rem] font-extrabold leading-[0.98] sm:text-[2.35rem]">
+                  {species.name}
+                </h3>
+                <p className="mt-3 text-lg italic text-forest-800/80">
+                  {species.latin}
                 </p>
-                <p className="mt-1 text-[1.95rem] font-extrabold leading-none">
-                  {species.population}
-                </p>
+
+                <div className="mt-7 space-y-5">
+                  <div>
+                    <p className="flex items-center gap-2 text-[0.95rem] font-semibold uppercase tracking-wide text-forest-800/85">
+                      <Users className="h-5 w-5" />
+                      Populasi di IKN
+                    </p>
+                    <p className="mt-1 text-[1.95rem] font-extrabold leading-none">
+                      {species.population}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[0.95rem] font-semibold uppercase tracking-wide text-forest-800/85">
+                      Tren di IKN
+                    </p>
+                    <p className="mt-1 max-w-[12rem] text-[1.15rem] font-extrabold leading-tight sm:text-[1.3rem]">
+                      {species.trend}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[0.95rem] font-semibold uppercase tracking-wide text-forest-800/85">
+                      Habitat Utama
+                    </p>
+                    <p className="mt-2 max-w-[12rem] text-[1rem] font-semibold leading-snug text-forest-800/85">
+                      {species.habitat}
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <p className="text-[0.95rem] font-semibold uppercase tracking-wide text-forest-800/85">
-                  Tren di IKN
-                </p>
-                <p className="mt-1 max-w-[12rem] text-[1.15rem] font-extrabold leading-tight sm:text-[1.3rem]">
-                  {species.trend}
-                </p>
+              <Image
+                src={species.image}
+                alt={species.imageAlt}
+                width={260}
+                height={300}
+                className={`absolute h-auto max-w-none drop-shadow-[0_14px_24px_rgba(35,62,45,0.24)] ${species.imageClassName}`}
+                priority={active === 0}
+              />
+
+              <div className="relative z-10 mt-8 rounded-2xl border border-white/85 bg-forest-700/58 px-5 py-5 text-center text-base leading-tight text-white backdrop-blur-[2px] sm:px-6 sm:text-[1.05rem]">
+                {species.note}
               </div>
-
-              <div>
-                <p className="text-[0.95rem] font-semibold uppercase tracking-wide text-forest-800/85">
-                  Habitat Utama
-                </p>
-                <p className="mt-2 max-w-[12rem] text-[1rem] font-semibold leading-snug text-forest-800/85">
-                  {species.habitat}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <Image
-            src={species.image}
-            alt={species.imageAlt}
-            width={260}
-            height={300}
-            className={`absolute h-auto max-w-none drop-shadow-[0_14px_24px_rgba(35,62,45,0.24)] ${species.imageClassName}`}
-            priority={active === 0}
-          />
-
-          <div className="relative z-10 mt-8 rounded-2xl border border-white/85 bg-forest-700/58 px-5 py-5 text-center text-base leading-tight text-white backdrop-blur-[2px] sm:px-6 sm:text-[1.05rem]">
-            {species.note}
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </article>
 
         <div className="mt-4 flex justify-center gap-2">

@@ -29,4 +29,5 @@
 html,
 body {
   background: var(--color-leaf-50);
+  scroll-behavior: smooth;
 }
