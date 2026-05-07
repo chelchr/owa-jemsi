@@ -3,7 +3,7 @@ package model
 import "time"
 
 type Report struct {
-	ID uint `gorm:"primaryKey"`
+	ID uint `gorm:"primaryKey" json:"id"`
 
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`

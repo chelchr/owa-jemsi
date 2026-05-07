@@ -34,8 +34,11 @@ func main() {
 		log.Println("✅ AI service connected at", aiClient.BaseURL)
 	}
 
+	// Init WhatsApp service
+	waService := service.NewWhatsAppService()
+
 	reportRepo := &repository.ReportRepository{DB: db}
-	reportService := &service.ReportService{Repo: reportRepo, AIClient: aiClient}
+	reportService := &service.ReportService{Repo: reportRepo, AIClient: aiClient, WhatsAppSvc: waService}
 	reportHandler := &handler.ReportHandler{Service: reportService}
 
 	r := gin.Default()

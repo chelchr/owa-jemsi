@@ -12,12 +12,13 @@ import (
 )
 
 type ReportService struct {
-	Repo     *repository.ReportRepository
-	AIClient *AIClient
+	Repo        *repository.ReportRepository
+	AIClient    *AIClient
+	WhatsAppSvc *WhatsAppService
 }
 
-func NewReportService(repo *repository.ReportRepository, aiClient *AIClient) *ReportService {
-	return &ReportService{Repo: repo, AIClient: aiClient}
+func NewReportService(repo *repository.ReportRepository, aiClient *AIClient, waSvc *WhatsAppService) *ReportService {
+	return &ReportService{Repo: repo, AIClient: aiClient, WhatsAppSvc: waSvc}
 }
 
 // CREATE REPORT — dengan prediksi AI
@@ -49,7 +50,22 @@ func (s *ReportService) Create(report model.Report, photoFile multipart.File, ph
 			prediction.SpeciesLabel, prediction.Confidence*100, prediction.RiskLevel)
 	}
 
-	return s.Repo.Create(report)
+	savedReport, err := s.Repo.Create(report)
+	if err != nil {
+		return savedReport, err
+	}
+
+	// Kirim notifikasi WhatsApp di background (goroutine) agar tidak memperlambat response
+	if s.WhatsAppSvc != nil {
+		go func() {
+			err := s.WhatsAppSvc.SendNotificationBaileys(savedReport)
+			if err != nil {
+				log.Printf("⚠️ Failed to send WhatsApp notification: %v", err)
+			}
+		}()
+	}
+
+	return savedReport, nil
 }
 
 // =======================
