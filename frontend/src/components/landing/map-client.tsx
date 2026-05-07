@@ -44,9 +44,9 @@ export default function MapClient({ reports }: { reports: Report[] }) {
         attributionControl={false}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
-        {reports.map((r) => (
+        {reports.map((r, index) => (
           <Marker
-            key={r.id}
+            key={r.id || `fallback-${index}`}
             position={[r.latitude, r.longitude]}
             icon={customIcon(getColor(r.species))}
           >
