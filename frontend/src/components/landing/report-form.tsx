@@ -6,8 +6,19 @@ import { submitReport } from "@/lib/api";
 import { useGeolocation } from "@/lib/use-geolocation";
 import { toast } from "@/components/ui/toast";
 import { useReportModal } from "./report-context";
-
-const ANIMALS = ["Orangutan", "Enggang", "Beruang Madu", "Lainnya"] as const;
+import Image from "next/image";
+const ANIMALS = [
+  "Orangutan",
+  "Enggang",
+  "Beruang Madu",
+  "Owa",
+  "Bekantan",
+  "Gajah",
+  "Macan Dahan",
+  "Penyu",
+  "Badak Sumatera",
+  "Lainnya",
+] as const;
 
 export function ReportModal() {
   const { open, closeModal } = useReportModal();
@@ -119,9 +130,14 @@ export function ReportModal() {
       <div className="relative w-full max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto rounded-3xl bg-white shadow-2xl animate-in slide-in-from-bottom-8 duration-300">
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center gap-3 rounded-t-3xl bg-orange-brand px-5 py-4 text-white">
-          <span className="grid place-items-center w-10 h-10 rounded-lg bg-white/15">
-            <Siren className="w-5 h-5" />
-          </span>
+          <Image
+            src="/report2.svg"
+            alt="Siren Icon"
+            width={20}
+            height={20}
+            className="w-10 h-10"
+          />
+
           <div className="leading-tight flex-1">
             <p id="report-title" className="font-bold">
               HERU | Owa Jemsi
@@ -242,7 +258,7 @@ export function ReportModal() {
                 maxLength={240}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Contoh: 1 ekor dewasa di tepi jalan tol KM 67, terlihat tenang."
+                placeholder="Contoh: 1 ekor macan dahan di tepi jalan tol KM 67, terlihat tenang."
                 className="w-full rounded-xl border border-forest-100 bg-leaf-50/50 p-3 text-sm text-forest-900 placeholder:text-forest-700/40 focus:outline-none focus:ring-2 focus:ring-forest-400"
               />
               <span className="absolute right-3 bottom-2 text-[11px] text-forest-700/60">

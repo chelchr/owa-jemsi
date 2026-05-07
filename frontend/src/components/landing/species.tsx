@@ -12,9 +12,9 @@ const SPECIES = [
     latin: "Pongo pygmaeus morio",
     population: "± 1.200",
     trend: "Menurun Tajam",
-    habitat: "Hutan hujan dataran rendah dan koridor riparian yang masih rapat.",
-    note:
-      "Primata besar berambut cokelat kemerahan dengan kecerdasan tinggi. Orangutan sangat sensitif pada fragmentasi habitat dan gangguan suara berat.",
+    habitat:
+      "Hutan hujan dataran rendah dan koridor riparian yang masih rapat.",
+    note: "Primata besar berambut cokelat kemerahan dengan kecerdasan tinggi. Orangutan sangat sensitif pada fragmentasi habitat dan gangguan suara berat.",
     image: "/Group.svg",
     imageAlt: "Ilustrasi Orangutan",
     imageClassName:
@@ -26,18 +26,107 @@ const SPECIES = [
     ],
   },
   {
+    badge: "Genting",
+    name: "Bekantan",
+    latin: "Nasalis larvatus",
+    population: "± 1.400",
+    trend: "Stabil di Mangrove",
+    habitat: "Hutan Bakau & Pesisir.",
+    note: "Monyet berhidung panjang yang mahir berenang dan hidup berkelompok di tepian sungai.",
+    image: "/bekantan.svg",
+    imageAlt: "Ilustrasi Bekantan",
+    imageClassName:
+      "right-1 top-[7rem] w-70 sm:right-2 sm:top-[4.75rem] sm:w-44",
+    stars: [
+      "right-[4rem] top-16",
+      "right-1 top-24 scale-[0.58]",
+      "left-4 top-[18.25rem] scale-[0.85]",
+    ],
+  },
+  {
+    badge: "Genting",
+    name: "Gajah Borneo",
+    latin: "Elephas maximus borneensis",
+    population: "Non Residen",
+    trend: "Menurun",
+    habitat: "Hutan Hujan & Padang.",
+    note: "Gajah berukuran paling kecil di dunia dengan karakter wajah yang terlihat lebih bulat.",
+    image: "gajahborneo.svg",
+    imageAlt: "Ilustrasi Gajah Borneo",
+    imageClassName:
+      "right-1 top-[7rem] w-60 sm:right-2 sm:top-[4.75rem] sm:w-44",
+    stars: [
+      "right-[4rem] top-16",
+      "right-1 top-24 scale-[0.58]",
+      "left-4 top-[18.25rem] scale-[0.85]",
+    ],
+  },
+  {
+    badge: "Genting",
+    name: "Owa Kalimantan",
+    latin: "Hylobates muelleri",
+    population: "± 300",
+    trend: "Menurun Lambat",
+    habitat: "Kanopi Hutan Primer.",
+    note: "Primata tanpa ekor yang dikenal karena suara nyanyian nyaringnya di pagi hari.",
+    image: "/owakalimantan.svg",
+    imageAlt: "Ilustrasi Owa Kalimantan",
+    imageClassName:
+      "right-1 top-[7rem] w-60 sm:right-2 sm:top-[4.75rem] sm:w-44",
+    stars: [
+      "right-[4rem] top-16",
+      "right-1 top-24 scale-[0.58]",
+      "left-4 top-[18.25rem] scale-[0.85]",
+    ],
+  },
+  {
+    badge: "Genting",
+    name: "Penyu (Hijau/Sisik)",
+    latin: "Chelonia mydas",
+    population: "± 100",
+    trend: "Terganggu Pembangunan",
+    habitat: "Laut & Pesisir Pantai.",
+    note: "Reptil laut penjelajah samudra yang sering mencari makan di area lamun Teluk Balikpapan.",
+    image: "/penyu.svg",
+    imageAlt: "Ilustrasi Penyu",
+    imageClassName:
+      "right-1 top-[10rem] w-75 sm:right-2 sm:top-[4.75rem] sm:w-44",
+    stars: [
+      "right-[4rem] top-16",
+      "right-1 top-24 scale-[0.58]",
+      "left-4 top-[18.25rem] scale-[0.85]",
+    ],
+  },
+  {
+    badge: "Rentan",
+    name: "Macan Dahan",
+    latin: "Neofelis diardi",
+    population: "< 50",
+    trend: "Menurun Tajam",
+    habitat: "Hutan Hujan Dataran Rendah.",
+    note: "Kucing besar penyendiri dengan corak bulu menyerupai awan dan kemampuan memanjat yang ahli.",
+    image: "/macandahan.svg",
+    imageAlt: "Ilustrasi Macan Dahan",
+    imageClassName:
+      "right-1 top-[7.8rem] w-70 sm:right-2 sm:top-[4.75rem] sm:w-44",
+    stars: [
+      "right-[4rem] top-16",
+      "right-1 top-24 scale-[0.58]",
+      "left-4 top-[18.25rem] scale-[0.85]",
+    ],
+  },
+  {
     badge: "Rentan",
     name: "Burung Enggang",
     latin: "Buceros rhinoceros",
     population: "± 2.000",
     trend: "Menurun Lambat",
     habitat: "Hutan hujan primer dengan pohon-pohon besar untuk bersarang.",
-    note:
-      "Burung besar dengan paruh oranye-merah yang ikonik. Dalam budaya lokal, enggang dianggap sebagai panglima penjaga hutan dan penanda ekosistem sehat.",
-    image: "/Enggang1-1%201.svg",
+    note: "Burung besar dengan paruh oranye-merah yang ikonik. Dalam budaya lokal, enggang dianggap sebagai panglima penjaga hutan dan penanda ekosistem sehat.",
+    image: "/burungenggang.svg",
     imageAlt: "Ilustrasi Burung Enggang",
     imageClassName:
-      "right-[-1.35rem] top-[5.5rem] w-52 sm:right-[-1rem] sm:top-[5rem] sm:w-56",
+      "right-[-1.35rem] top-[7rem] w-65 sm:right-[-1rem] sm:top-[7rem] sm:w-44",
     stars: [
       "right-[8.5rem] top-20",
       "right-6 top-[17rem] scale-[0.88]",
@@ -50,13 +139,13 @@ const SPECIES = [
     latin: "Helarctos malayanus",
     population: "± 800",
     trend: "Stabil di Area Penyangga",
-    habitat: "Hutan hujan tropis dataran rendah dengan pohon berbuah dan sarang serangga.",
-    note:
-      "Mamalia berbulu hitam pendek dengan tanda dada berbentuk bulan sabit. Mereka sering berpindah mengikuti sumber pakan dan sangat mengandalkan tutupan hutan.",
+    habitat:
+      "Hutan hujan tropis dataran rendah dengan pohon berbuah dan sarang serangga.",
+    note: "Mamalia berbulu hitam pendek dengan tanda dada berbentuk bulan sabit. Mereka sering berpindah mengikuti sumber pakan dan sangat mengandalkan tutupan hutan.",
     image: "/Group(1).svg",
     imageAlt: "Ilustrasi Beruang Madu",
     imageClassName:
-      "right-1 top-[5rem] w-40 sm:right-2 sm:top-[4.75rem] sm:w-44",
+      "right-1 top-[7rem] w-48 sm:right-2 sm:top-[4.75rem] sm:w-44",
     stars: [
       "right-[4rem] top-16",
       "right-1 top-24 scale-[0.58]",
@@ -95,6 +184,7 @@ export function Species() {
           <div className="absolute bottom-24 right-0 h-40 w-56 rounded-tl-[7rem] bg-white/12" />
           <div className="absolute left-10 top-24 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
 
+<<<<<<< HEAD
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -106,6 +196,14 @@ export function Species() {
               {species.stars.map((starClass, index) => (
                 <SpeciesStar key={`${species.name}-${index}`} className={starClass} />
               ))}
+=======
+          {species.stars.map((starClass, index) => (
+            <SpeciesStar
+              key={`${species.name}-${index}`}
+              className={starClass}
+            />
+          ))}
+>>>>>>> bfe1c54 (backup)
 
               <div className="relative z-10 pr-36 text-forest-800 sm:pr-40">
                 <span className="inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold shadow-sm">
