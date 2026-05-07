@@ -1,18 +1,4 @@
 "use client";
-<<<<<<< HEAD
-=======
-
-import { useEffect } from "react";
-import { AlertTriangle, MapPin } from "lucide-react";
-import Image from "next/image";
-
-const LEGEND = [
-  { label: "Beruang", color: "bg-yellow-400" },
-  { label: "Enggang", color: "bg-green-500" },
-  { label: "Orangutan", color: "bg-orange-brand" },
-  { label: "Lainnya", color: "bg-amber-700" },
-];
->>>>>>> bfe1c54 (backup)
 
 import { AlertTriangle } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -29,7 +15,6 @@ const MapClient = dynamic(() => import("./map-client"), {
 });
 
 export function IncidentMap() {
-<<<<<<< HEAD
   const [reports, setReports] = useState<Report[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
 
@@ -38,13 +23,17 @@ export function IncidentMap() {
     getStats().then(setStats).catch(console.error);
   }, []);
 
-  const total = stats?.total ?? 109; // fallback if error
+  const total = stats?.total ?? 109;
 
-  // Calculate species specific from reports manually or just show total for now
-  // For simplicity, let's derive it from reports array if we have it
-  const beruangCount = reports.filter((r) => r.species.toLowerCase().includes("beruang")).length;
-  const enggangCount = reports.filter((r) => r.species.toLowerCase().includes("enggang")).length;
-  const orangutanCount = reports.filter((r) => r.species.toLowerCase().includes("orangutan")).length;
+  const beruangCount = reports.filter((r) =>
+    r.species.toLowerCase().includes("beruang"),
+  ).length;
+  const enggangCount = reports.filter((r) =>
+    r.species.toLowerCase().includes("enggang"),
+  ).length;
+  const orangutanCount = reports.filter((r) =>
+    r.species.toLowerCase().includes("orangutan"),
+  ).length;
 
   const STATS_CARDS = [
     { label: "BERUANG", value: beruangCount || 20, color: "bg-danger-500" },
@@ -52,15 +41,6 @@ export function IncidentMap() {
     { label: "ORANGUTAN", value: orangutanCount || 35, color: "bg-amber-500" },
   ];
 
-=======
-  useEffect(() => {
-    fetch("http://localhost:8080/ping")
-      .then((res) => res.text())
-      .then((data) => console.log("PING:", data))
-      .catch((err) => console.error("ERROR:", err));
-  }, []);
-
->>>>>>> bfe1c54 (backup)
   return (
     <section id="peta" className="bg-leaf-50 px-5 py-12">
       <div className="mx-auto max-w-md">
@@ -76,23 +56,11 @@ export function IncidentMap() {
           untuk harmoni pembangunan yang lebih baik.
         </p>
 
-<<<<<<< HEAD
         <div className="mt-6">
           <MapClient reports={reports} />
         </div>
 
         <div className="mt-4 rounded-2xl bg-forest-700 text-white p-4 shadow-sm">
-=======
-        <Image
-          src="/Frame 5.svg"
-          alt="Peta Interaksi Satwa IKN"
-          width={800}
-          height={400}
-          className="rounded-2xl border border-leaf-100"
-        />
-
-        <div className="mt-4 rounded-2xl bg-forest-700 text-white p-4">
->>>>>>> bfe1c54 (backup)
           <p className="text-[11px] tracking-wider opacity-80">TOTAL INSIDEN</p>
           <p className="mt-1 text-3xl font-extrabold">
             {total}{" "}
