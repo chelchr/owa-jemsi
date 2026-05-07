@@ -184,7 +184,6 @@ export function Species() {
           <div className="absolute bottom-24 right-0 h-40 w-56 rounded-tl-[7rem] bg-white/12" />
           <div className="absolute left-10 top-24 h-44 w-44 rounded-full bg-white/10 blur-3xl" />
 
-<<<<<<< HEAD
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -194,16 +193,11 @@ export function Species() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               {species.stars.map((starClass, index) => (
-                <SpeciesStar key={`${species.name}-${index}`} className={starClass} />
+                <SpeciesStar
+                  key={`${species.name}-${index}`}
+                  className={starClass}
+                />
               ))}
-=======
-          {species.stars.map((starClass, index) => (
-            <SpeciesStar
-              key={`${species.name}-${index}`}
-              className={starClass}
-            />
-          ))}
->>>>>>> bfe1c54 (backup)
 
               <div className="relative z-10 pr-36 text-forest-800 sm:pr-40">
                 <span className="inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold shadow-sm">
