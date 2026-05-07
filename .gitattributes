@@ -2,4 +2,5 @@
 * text=auto
 
 # Sembunyikan Jupyter Notebook dari statistik bahasa pemrograman GitHub
-*.ipynb linguist-generated=true
+*.ipynb linguist-detectable=false
+*.ipynb linguist-vendored
